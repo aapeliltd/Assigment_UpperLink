@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class UpperLinkAssignmentApplication {
+	
+	static final int MAX_CHAR = 256;
 
 	public static void main(String[] args) {
 		SpringApplication.run(UpperLinkAssignmentApplication.class, args);
@@ -16,10 +18,10 @@ public class UpperLinkAssignmentApplication {
 		
 		Character c = findFirstNonRepeated("jaassmes");
 		
-		System.out.println(c);
+		System.out.println( "The first non repeated Char : " + c);
 		
 		
-		printRepeatedCharAndCount("jaammmess");
+		printRepeatedCharAndCounts("jaammmess");
 
 	}
 	
@@ -43,7 +45,7 @@ public class UpperLinkAssignmentApplication {
 	        }
 	    }
 
-	    System.out.print(duplicates);
+	    System.out.println( "The duplicate characters in "+ str + " are:  "+ duplicates);
 	   
 	}
 	
@@ -84,46 +86,35 @@ public class UpperLinkAssignmentApplication {
 	}
 	
 	
-	static void printRepeatedCharAndCount(String str) {
-	    String duplicates = "";
-	    int count = 0;
-	    HashMap<String, Integer> mp = new HashMap<String, Integer>();
-	    for (int i = 0; i < str.length() - 1; i++) {
-	    	
-	        for (int j = i + 1; j < str.length(); j++)
+	static void printRepeatedCharAndCounts(String str) {
 
-	        {
-	            if (str.charAt(i) == str.charAt(j)) {
-	            	 
-	            	  
-	                if (!duplicates.contains(String.valueOf(str.charAt(j)))) {
-	                	char val = str.charAt(j);
-	                    duplicates += val;
-	                    if(mp.size() > 0) {
-	                    	if(mp.containsKey(""+val)) {
-	                    		int count1 = mp.get(""+val);
-	                    		count1 = count1 + 1;
-	                    		mp.remove(""+val);
-	                    		mp.put(""+val, count);
-	                    	}else {
-	                    		mp.put(""+val, 1);
-	                    	}
-	                    }
-	                    
-	                    break;
-	                }
+        int count[] = new int[MAX_CHAR]; 
+  
+        int len = str.length(); 
 
-	            }
-	        }
-	    }
-
-	    //System.out.print(duplicates);
-	    mp.forEach((k, v)->{
-	    	System.out.printf("%s = %s", k, v);
-	    });
+        for (int i = 0; i < len; i++) 
+            count[str.charAt(i)]++; 
+  
+        char ch[] = new char[str.length()]; 
+        for (int i = 0; i < len; i++) { 
+            ch[i] = str.charAt(i); 
+            int find = 0; 
+            for (int j = 0; j <= i; j++) { 
+  
+                // If any matches found 
+                if (str.charAt(i) == ch[j])  
+                    find++;                 
+            } 
+  
+            if (find == 1)  
+            	if(count[str.charAt(i)] != 1) {
+            		 System.out.println("Number of Occurrence of " + 
+                             str.charAt(i) + " is:" + count[str.charAt(i)]);   
+            	}
+                         
+        } 
 	   
 	}
-
 	
 
 
